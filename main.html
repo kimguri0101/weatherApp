@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<!-- <html lang="en"> -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<style>
+*{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-family: Pretendard,'Noto Sans KR', sans-serif;
+    }
+body{
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+}
+
+.main{
+    background-color: #E4DFFD;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 0px 4px 12px 0px rgba(154, 138, 245, 0.80);
+}
+
+.phone{
+    overflow: hidden;
+    width: 393px;
+    height: 816px;
+    background-color: #C1BBF7;
+    margin-left: auto;
+    margin-right: auto;
+
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    border-radius: 30px;
+    text-align: center;
+}
+/*spotBox-------------------------------------------------------------*/
+.spotBox{
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 8px;
+}
+.spotBox img{
+    width: 14px;
+    height: 21px;
+}
+
+/*spotTime_box--------------------------------------------------------*/
+.spotTime_box{
+    padding-top: 30px;
+}
+.spotTime_box h1{
+    color: #6C22D6;
+    font-size: 24px;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+}
+.spotTime_box .time{
+    color: #808080;
+    font-size: 14px;
+}
+#weather{
+    font-size: 24px;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    color: #6C22D6;
+    position: absolute;
+    left: 100px;
+    top: 192px;
+    
+}
+
+/*bigInfo_box--------------------------------------------------------*/
+.bigInfo_box{
+    position: relative;
+    text-align: center;
+    margin-bottom: 40px;
+}
+.bigInfo_box #bigNum{
+    color: #6C22D6;
+    font-size: 180px;
+    font-style: normal;
+    font-weight: 700;
+    margin-left: 42px;
+    display: block;
+    
+}
+.bigInfo_box #bigImg{
+    position: absolute;
+    top: 106px;
+    left: 193px;
+}
+
+
+/*threeInfo------------------------------------------------------------*/
+.threeInfo{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.threeInfo_box, .sliTime_box, .week_box{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+.threeInfo_box{
+    gap: 38px;
+    background-color: #EEE9FF;
+    margin-bottom: 30px;
+    border-radius: 50px;
+    width: 353px;
+    height: 92px;
+}
+.threeInfo_se{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.threeInfo_se .num{
+    color: #35106B;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+}
+.threeInfo_se .name{
+    color: #9789AA;
+    font-size: 10px;
+    font-style: normal; 
+    font-weight: 400;
+}
+
+
+
+.slider_box{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.slider{
+    width: 100%;
+    height: 90px;
+}
+#sliTime_box{
+    display: flex;
+    width: 353px;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 22px;
+    margin-bottom: 40px;
+}
+.sliTime{
+    color: #6913D5;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.weekForecast{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 30px;
+}
+.weekForecast .week_title{
+    margin-left: 20px;
+    font-size: 16px;
+    text-align: left;
+    font-style: normal;
+    font-weight: 700;
+    color: #6913D5;
+}
+
+.week_box::-webkit-scrollbar {
+    display: none;
+}
+.week_box{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    width: 130px;
+    height: 390px;
+
+    overflow: scroll;
+    transform: rotate(-90deg);
+    transform-origin: center 50px;
+}
+
+.weekForecast .Box{
+    transform: rotate(90deg);
+    margin: -30px auto;
+    cursor: pointer;
+    color: #FFF;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+
+    display: flex;
+    padding: 20px 16px;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+
+    border-radius: 24px;
+    background: #7848E3;
+}
+
+.Box:first-child{
+    margin-top: 136px !important;
+}
+.Box:last-child{
+    margin-bottom: -6px !important;
+}
+
+
+.day_smallimg{
+    width: 26px;
+    height: 26px;
+}
+.number .High,.low{
+    display: block;
+}
+
+.circle{
+    width: 392px;
+    height: 392px;
+    border-radius: 392px;
+    background: rgba(154, 138, 245, 0.80);
+    filter: blur(62px);
+    position: absolute;
+    left: 190px;
+    bottom: -186px;
+    z-index: -10;
+}
+.todaytime{
+    color: #6913D5;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+</style>
+</head>
+
+<body>
+    <div id="all" class="phone">
+        <div class="main">
+            <div class="spotTime_box">
+                <div class="spotBox">
+                    <img src="spot.png">
+                    <h1>Los Angeles</h1>
+                </div>
+                <div class="time">
+                    Monday, 24, January 09:00
+                </div>
+            </div>
+            <div class="bigInfo_box">
+                <div class="bigNum_box">
+                  <span id="bigNum">22°</span>
+                </div>
+                <img id="bigImg" src="bigimg.png">
+                <span id="weather">Cloudy</span>
+            </div>
+           
+            <div class="threeInfo">
+                <div class="threeInfo_box">
+                    <div class="precipitation threeInfo_se">
+                        <img class="threeIcon" src="precipitation.png">
+                        <span class="num" id="precipitation_num">22%</span>
+                        <span class="name" id="precipitation_name">precipitation</span>
+                    </div>
+                    <div class="Humidity threeInfo_se">
+                        <img class="threeIcon" src="Humidity.png">
+                        <span class="num" id="Humidity_num">22%</span>
+                        <span class="name" id="Humidity_name">Humidity</span>
+                    </div>
+                    <div class="Air Pollution threeInfo_se">
+                        <img class="threeIcon airpoll_img" id="airpoll_img" src="Air Pollution.png">
+                        <span class="num" id="Air_num">22%</span>
+                        <span class="name" d="Air_namem">Air Pollution</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slider_box">
+                <canvas  width="393" height="84" id="chart"></canvas>
+                <div id="sliTime_box"></div>
+            </div>
+        </div>
+
+
+        <div class="weekForecast">
+            <span class="week_title">7-Day Forecast</span>
+            <div class="week_box">
+                <div class="Box">
+                    <span class="day">MON</span>
+                    <img class="day_smallimg" src="" />
+                    <div class="number">
+                        <span class="High">22°</span>
+                    </div>
+                </div>
+                <div class="Box">
+                    <span class="day">MON</span>
+                    <img class="day_smallimg" src="" />
+                    <div class="number">
+                        <span class="High">22°</span>
+                    </div>
+                </div>
+                <div class="Box">
+                    <span class="day">MON</span>
+                    <img class="day_smallimg" src="" />
+                    <div class="number">
+                        <span class="High">22°</span>
+                    </div>
+                </div>
+                <div class="Box">
+                    <span class="day">MON</span>
+                    <img class="day_smallimg" src="" />
+                    <div class="number">
+                        <span class="High">22°</span>
+                    </div>
+                </div>
+                <div class="Box">
+                    <span class="day">MON</span>
+                    <img class="day_smallimg" src="" />
+                    <div class="number">
+                        <span class="High">22°</span>
+                    </div>
+                </div>
+                <div class="Box">
+                    <span class="day">MON</span>
+                    <img class="day_smallimg" src="" />
+                    <div class="number">
+                        <span class="High">22°</span>
+                    </div>
+                </div>
+                <div class="Box">
+                    <span class="day">MON</span>
+                    <img class="day_smallimg" src="" />
+                    <div class="number">
+                        <span class="High">22°</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="circle"></div>
+    </div>
+
+</body>
+
+<script>
+//하단 css 색 변화
+        $('.Box').each(function (index, item){
+            
+                $(item).css("backgroundColor" , "rgba(255, 255, 255,"+ 0.1/index*5+")")
+                
+        })
+
+//현재위치
+    navigator.geolocation.getCurrentPosition(function(pos) {
+
+        let lat = pos.coords.latitude;
+        let lon = pos.coords.longitude;
+
+        let forecast_url = 'https://api.openweathermap.org/data/2.5/forecast/daily?lat='+lat+'&lon='+lon+'&cnt=7&units=metric&appid=1bd4645f2f9d5161e741c7015822cf36'
+
+        let airpollution_url = 'http://api.openweathermap.org/data/2.5/air_pollution?lat='+lat+'&lon='+lon+'&appid=1bd4645f2f9d5161e741c7015822cf36'
+
+        fetch(airpollution_url)
+        .then((response) => response.json())
+        .then(function(json){
+ 
+            airprintWeatherData(json);
+        })
+
+        let todayURL = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat +'&lon='+ lon + '&units=metric&appid=1bd4645f2f9d5161e741c7015822cf36'
+
+        fetch(todayURL)
+        .then((response) => response.json())
+        .then(function(json){
+ 
+            todayprintWeatherData(json);
+        })
+
+        let URL = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat +'&lon='+ lon + '&units=metric&appid=1bd4645f2f9d5161e741c7015822cf36'
+
+        fetch(URL)
+        .then((response) => response.json())
+        .then(function(json){
+ 
+            printWeatherData(json);
+        })
+
+        fetch(forecast_url)
+        .then((response) => response.json())
+        .then(function(json){
+ 
+            forecastprintWeatherData(json);
+        })
+
+        
+        
+});
+
+
+function todayprintWeatherData(data){
+
+        let temp = data.main.temp.toFixed(0)
+        let Humidity = data.main.humidity
+        let weather = data.weather[0].main
+
+        $('#bigNum').text(temp+'°')
+        $('#weather').text(weather)
+        $('#Humidity_num').text(Humidity+'%')
+
+        let bigicon = data.weather[0].icon
+        $('#bigImg').attr('src', 'bigicon/' + bigicon + '.png')
+           
+}
+
+//오늘 날씨
+    function printWeatherData(data){
+    console.log(data)
+        let location = data.city.name
+        $('.spotBox h1').text(location)
+
+        //date&time
+        let today = moment().format('dddd, DD, MMMM, HH:mm')
+        $('.time').text(today)
+
+
+//선그래프
+           
+            let gridArea = {x:34, y:-20, h:112, w:393};
+            let chartArea = {x:34, y:-40, h:84, w:370};
+
+            let canvas = document.getElementById('chart');
+            let ctx = canvas.getContext('2d');
+
+            // 라인 스타일 정의.
+            ctx.strokeStyle = '#6913D5'; //그래프 선 색
+            ctx.fillStyle = '#fff'; //그래프 위 원 안쪽 색
+            ctx.lineWidth = 2;
+            ctx.lineJoin = 'round';//모서리 부분 둥글게
+
+        
+            // 차트 그리기.
+            let gapX = chartArea.w / (8); //가로축에 넣을 정보 수
+            let point = []; //배열선언
+            ctx.beginPath(); //라인 시작전 호출하는 메소드
+
+            //좌표값구하기
+            for(let i= 0 ; i<8 ; i++) {
+                let y = data.list[i].main.temp*6;//y좌표 그래프의 역동성을 위해 곱하기함
+                let x = chartArea.x + (gapX *i);//반올림으로 x값
+                point.push({x, y}); //그래프위 원
+                ctx.lineTo(x , y); //선
+            }
+            ctx.stroke();
+            ctx.closePath();
+
+
+            //그래프 위에 원 알맞은 위치에 그려넣기
+            for(let i= 0 ; i<8 ; i++) {
+                ctx.beginPath();
+                ctx.arc(point[i].x, point[i].y, 4, 0, 2 * Math.PI);//원그리기
+                ctx.fill();
+                ctx.stroke();
+                ctx.closePath();
+
+
+                //시간
+                let weekdt = data.list[i].dt
+                let hour = moment(weekdt*1000).format('H:mm')
+
+                let dom = $('<div class="todaytime"></div>')
+                dom.append(hour)
+                $('#sliTime_box').append(dom)     
+
+            }
+
+
+//클릭시 해당 시간대 정보 제공
+            $('.todaytime').each(function (index, item){
+                $(item).click(function (){         
+                    let temp = data.list[index].main.temp.toFixed(0)
+                    let Humidity = data.list[index].main.humidity
+                    let precipitation = data.list[index].pop
+                    let weather = data.list[index].weather[0].main
+                    let weekdt = data.list[index].dt
+                    let hour = moment(weekdt*1000).format('H:mm')
+
+                    $('#bigNum').text(temp+'°')
+                    $('#weather').text(weather)
+                    $('#Humidity_num').text(Humidity+'%')
+                    $('#precipitation_num').text(precipitation*100+'%')
+                    let bigicon = data.list[index].weather[0].icon
+                    $('#bigImg').attr('src', 'bigicon/' + bigicon + '.png')                   
+                })                    
+            })
+
+                 
+
+    }
+
+//앞으로의 날씨
+    function forecastprintWeatherData(data){
+
+        $('.day').each(function (index, item){
+                let weekdt = data.list[index].dt
+                let weekdate = moment(weekdt*1000).format('ddd')
+                $(item).text(weekdate)
+        });
+        $('.day_smallimg').each(function (index, item){
+            console.log(data.list[0].weather[0].icon)
+
+                let icon = data.list[index].weather[0].icon
+                $(item).attr('src', 'smallicon/' + icon + '.png')
+        });
+
+        $('.High').each(function (index, item){
+                let weektemp = data.list[index].temp.day.toFixed(0)   
+                $(item).text(weektemp+'°')
+                
+            });
+          
+    }
+
+//공기질
+    function airprintWeatherData(data){
+      
+        let air = data.list[0].main.aqi
+        $('#airpoll_img').css('margin-bottom', '9px')
+        $('#airpoll_img').css('padding-top', '2px')
+
+        if(air == 1 || 2){
+            $('#airpoll_img').attr('src', 'airpoll/good.png')
+            $('#Air_num').text('Good')
+        }else if(air == 3){
+            $('#airpoll_img').attr('src', 'airpoll/Moderate.png')
+            $('#Air_num').text('Normal')
+        }else{
+            $('#airpoll_img').attr('src', 'airpoll/poor.png')
+            $('#Air_num').text('Bad')
+        }
+        
+    }
+        
+ 
+
+</script>
+</html>
